@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OceanofPrompts | AI Prompt Packs for No-Code Builders</title>
+    <title>PromptHub | AI Prompt Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -30,9 +30,10 @@
         body {
             font-family: 'Inter', sans-serif;
             color: var(--dark);
-            background-color: #ffffff;
+            background: linear-gradient(135deg, #f0f4ff 0%, #f8f9fe 100%);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         h1, h2, h3, h4 {
@@ -168,7 +169,6 @@
         /* Hero Section */
         .hero {
             padding: 7rem 0 5rem;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e6f7ff 100%);
             position: relative;
             overflow: hidden;
         }
@@ -182,6 +182,7 @@
             height: 400px;
             border-radius: 50%;
             background: rgba(67, 97, 238, 0.08);
+            z-index: -1;
         }
 
         .hero-content {
@@ -208,83 +209,128 @@
             margin-top: 2rem;
         }
 
-        /* Categories */
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 1rem;
+        /* Search Section */
+        .search-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
         }
 
-        .section-subtitle {
-            font-size: 1.2rem;
-            text-align: center;
+        .search-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-bar {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
             color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 3rem;
         }
 
-        .categories-grid {
+        .filter-select {
+            width: 200px;
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            background: white;
+        }
+
+        /* Prompt Grid */
+        .prompts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
-        .category-card {
+        .prompt-card {
             background: white;
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--box-shadow);
             transition: var(--transition);
             border: 1px solid var(--light-gray);
+            display: flex;
+            flex-direction: column;
         }
 
-        .category-card:hover {
+        .prompt-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
         }
 
-        .category-header {
+        .prompt-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .prompt-content {
             padding: 1.5rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-        }
-
-        .category-header h3 {
-            margin: 0;
-            font-size: 1.4rem;
-        }
-
-        .category-body {
-            padding: 1.5rem;
-        }
-
-        .prompt-list {
-            list-style: none;
-            margin-bottom: 1.5rem;
-        }
-
-        .prompt-list li {
-            padding: 0.7rem 0;
-            border-bottom: 1px dashed var(--light-gray);
+            flex: 1;
             display: flex;
-            align-items: center;
+            flex-direction: column;
         }
 
-        .prompt-list li:last-child {
-            border-bottom: none;
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
         }
 
-        .prompt-list li i {
-            color: var(--success);
-            margin-right: 0.7rem;
-            font-size: 0.9rem;
+        .prompt-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
         }
 
-        /* Gumroad Button */
+        .ai-tool {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .prompt-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
         .gumroad-button {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
+            display: block;
+            text-align: center;
+            padding: 0.8rem;
             background: #36a9ae;
             color: white;
             border-radius: var(--border-radius);
@@ -294,8 +340,6 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
-            text-align: center;
-            width: 100%;
             position: relative;
             overflow: hidden;
         }
@@ -321,88 +365,34 @@
             left: 100%;
         }
 
-        /* About */
-        .about {
-            background: var(--light);
-        }
-
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-image {
-            flex: 1;
+        /* Satisfaction Section */
+        .satisfaction {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: var(--border-radius);
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: white;
-            font-size: 1.5rem;
+            padding: 5rem 0;
+            margin-top: 5rem;
             text-align: center;
-            padding: 2rem;
-            box-shadow: var(--box-shadow);
         }
 
-        /* How It Works */
-        .steps {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .step-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            text-align: center;
-            flex: 1;
-            min-width: 250px;
-            max-width: 300px;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-
-        .step-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .step-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(67, 97, 238, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            color: var(--primary);
-            font-size: 1.8rem;
-        }
-
-        .step-number {
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            background: var(--accent);
+        .satisfaction .section-title {
             color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .satisfaction .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .satisfaction-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Platforms */
@@ -435,6 +425,10 @@
         }
 
         /* FAQ */
+        .faq {
+            background: white;
+        }
+
         .faq-container {
             max-width: 800px;
             margin: 0 auto;
@@ -445,6 +439,11 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
         .faq-question {
@@ -455,6 +454,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 1.1rem;
         }
 
         .faq-answer {
@@ -467,10 +467,13 @@
 
         .faq-answer p {
             padding: 1.5rem 0;
+            color: var(--gray);
+            line-height: 1.7;
         }
 
         .faq-question i {
             transition: transform 0.3s ease;
+            color: var(--primary);
         }
 
         .faq-item.active .faq-answer {
@@ -479,6 +482,17 @@
 
         .faq-item.active .faq-question i {
             transform: rotate(180deg);
+        }
+
+        .update-badge {
+            display: inline-block;
+            background: rgba(76, 201, 240, 0.2);
+            color: var(--success);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
         }
 
         /* Footer */
@@ -556,12 +570,20 @@
                 font-size: 2.8rem;
             }
             
-            .about-content {
+            .search-container {
                 flex-direction: column;
             }
             
-            .about-image {
+            .filter-select {
                 width: 100%;
+            }
+
+            .satisfaction .section-title {
+                font-size: 2.2rem;
+            }
+
+            .satisfaction .section-subtitle {
+                font-size: 1.2rem;
             }
         }
 
@@ -585,15 +607,6 @@
             .hero-btns {
                 flex-direction: column;
             }
-            
-            .steps {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .step-card {
-                max-width: 100%;
-            }
         }
 
         @media (max-width: 576px) {
@@ -612,6 +625,14 @@
             .section-title {
                 font-size: 1.8rem;
             }
+
+            .satisfaction .section-title {
+                font-size: 1.8rem;
+            }
+
+            .satisfaction .section-subtitle {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -621,14 +642,14 @@
         <div class="container header-container">
             <a href="#" class="logo">
                 <i class="fas fa-bolt"></i>
-                Ocean of<span>Prompts</span>
+                Prompt<span>Hub</span>
             </a>
             <nav>
                 <ul>
-                    <li><a href="#categories">Prompt Packs</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#prompts">Browse Prompts</a></li>
+                    <li><a href="#platforms">Platforms</a></li>
                     <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
@@ -641,281 +662,64 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>AI Prompt Packs for No-Code Builders</h1>
-                <p>Create stunning websites in minutes with our expertly crafted AI prompts. Perfect for creators, freelancers, and entrepreneurs using no-code platforms.</p>
+                <h1>Discover Powerful AI Prompts</h1>
+                <p>Find the perfect prompts to supercharge your no-code projects. Search by title, description, or AI tool to find exactly what you need.</p>
                 <div class="hero-btns">
-                    <a href="#categories" class="btn">Browse Prompt Packs</a>
-                    <a href="#how-it-works" class="btn btn-outline">How It Works</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <script type='text/javascript' src='//pl26950563.profitableratecpm.com/a3/4e/67/a34e677023b51db5aa5078f26633f805.js'></script>
-    <!-- Categories -->
-    <section id="categories">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Prompt Pack Categories</h2>
-                <p class="section-subtitle">Browse our collection of specialized AI prompts designed for different website types and industries.</p>
-            </div>
-            
-            <div class="categories-grid">
-                <!-- Category 1 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Portfolio</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Creative Portfolio Generator</li>
-                            <li><i class="fas fa-check-circle"></i> Photography Showcase</li>
-                            <li><i class="fas fa-check-circle"></i> Designer Portfolio Layout</li>
-                            <li><i class="fas fa-check-circle"></i> Artist Portfolio Template</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/vmhxj" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 2 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Ecommerce</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Fashion Store Builder</li>
-                            <li><i class="fas fa-check-circle"></i> Digital Products Store</li>
-                            <li><i class="fas fa-check-circle"></i> Product Detail Page Generator</li>
-                            <li><i class="fas fa-check-circle"></i> Checkout Flow Optimizer</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/cswym" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 3 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Agency / Services</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Service Showcase Template</li>
-                            <li><i class="fas fa-check-circle"></i> Client Testimonial Generator</li>
-                            <li><i class="fas fa-check-circle"></i> Case Study Builder</li>
-                            <li><i class="fas fa-check-circle"></i> Agency Homepage Creator</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/heipx" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 4 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Blog / Writing</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Blog Layout Generator</li>
-                            <li><i class="fas fa-check-circle"></i> Article Template Creator</li>
-                            <li><i class="fas fa-check-circle"></i> Newsletter Signup Optimizer</li>
-                            <li><i class="fas fa-check-circle"></i> Content Archive Builder</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/xgowuo" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 5 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>SaaS / Startup</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Landing Page Generator</li>
-                            <li><i class="fas fa-check-circle"></i> Feature Showcase Builder</li>
-                            <li><i class="fas fa-check-circle"></i> Pricing Page Creator</li>
-                            <li><i class="fas fa-check-circle"></i> Onboarding Flow Optimizer</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/txjbyt" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 6 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Coaching / Consulting</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Service Package Showcase</li>
-                            <li><i class="fas fa-check-circle"></i> Booking System Generator</li>
-                            <li><i class="fas fa-check-circle"></i> Testimonial Gallery Builder</li>
-                            <li><i class="fas fa-check-circle"></i> Consultation Form Creator</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/fmspj" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 7 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Course / Educator Site</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Course Sales Page Generator</li>
-                            <li><i class="fas fa-check-circle"></i> Curriculum Layout Builder</li>
-                            <li><i class="fas fa-check-circle"></i> Student Testimonial Showcase</li>
-                            <li><i class="fas fa-check-circle"></i> Lesson Preview Creator</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/vmfqj" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 8 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Event or Webinar Page</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Event Landing Page Builder</li>
-                            <li><i class="fas fa-check-circle"></i> Registration Form Optimizer</li>
-                            <li><i class="fas fa-check-circle"></i> Speaker Showcase Template</li>
-                            <li><i class="fas fa-check-circle"></i> Schedule Layout Generator</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/lpgox" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 9 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Newsletter / Creator Page</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Newsletter Archive Builder</li>
-                            <li><i class="fas fa-check-circle"></i> Subscription Landing Page</li>
-                            <li><i class="fas fa-check-circle"></i> Content Library Generator</li>
-                            <li><i class="fas fa-check-circle"></i> Creator Bio Template</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/kzsdy" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Category 10 -->
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3>Local Business</h3>
-                    </div>
-                    <div class="category-body">
-                        <ul class="prompt-list">
-                            <li><i class="fas fa-check-circle"></i> Service Area Showcase</li>
-                            <li><i class="fas fa-check-circle"></i> Customer Review Gallery</li>
-                            <li><i class="fas fa-check-circle"></i> Contact & Location Layout</li>
-                            <li><i class="fas fa-check-circle"></i> Appointment Booking System</li>
-                        </ul>
-                        <a href="https://suthan6.gumroad.com/l/qnfxcv" class="gumroad-button">
-                            <i class="fas fa-shopping-cart"></i> I Want It!.
-                        </a>
-                    </div>
+                    <a href="#prompts" class="btn">Browse Prompts</a>
+                    <a href="#faq" class="btn btn-outline">Learn More</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="about">
+    <!-- Search Section -->
+    <section id="prompts">
         <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Designed for Creators & Solopreneurs</h2>
-                    <p>Our AI Prompt Packs are specifically crafted for individuals and small teams who want to build professional websites quickly without coding knowledge.</p>
-                    <p class="mb-3">Whether you're a freelancer, designer, small business owner, or startup founder, our prompts help you generate high-quality website structures and content in seconds.</p>
-                    <p>Simply copy the prompts, paste them into your favorite no-code AI builder, and watch as it generates exactly what you need for your project.</p>
+            <div class="search-section">
+                <div class="text-center mb-4">
+                    <h2>Find Your Perfect Prompt</h2>
+                    <p>Search our collection of AI prompts by title, description, or AI tool</p>
                 </div>
-                <div class="about-image">
-                    <div>
-                        <i class="fas fa-users fa-3x mb-3"></i>
-                        <h3>Perfect For:</h3>
-                        <p>Freelancers • Designers • Small Businesses • Startups • Creators</p>
+                
+                <div class="search-container">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Search prompts by title, description, or AI tool...">
                     </div>
+                    <select class="filter-select" id="tool-filter">
+                        <option value="">All AI Tools</option>
+                        <option value="Cursor">Cursor</option>
+                        <option value="Lovable">Lovable</option>
+                        <option value="Replit">Replit</option>
+                        <option value="Framer">Framer</option>
+                        <option value="Durable">Durable</option>
+                    </select>
                 </div>
+            </div>
+            
+            <div class="prompts-grid" id="prompts-container">
+                <!-- Prompt cards will be generated here -->
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section id="how-it-works">
+    <!-- Satisfaction Section -->
+    <section class="satisfaction">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Get professional website sections in 3 simple steps</p>
+            <div class="satisfaction-icon">
+                <i class="fas fa-heart"></i>
             </div>
-            
-            <div class="steps">
-                <div class="step-card">
-                    <div style="position: relative;">
-                        <div class="step-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <div class="step-number">1</div>
-                    </div>
-                    <h3>Browse Prompts</h3>
-                    <p>Explore our collection of prompt packs and find the perfect prompts for your project.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div style="position: relative;">
-                        <div class="step-icon">
-                            <i class="fas fa-copy"></i>
-                        </div>
-                        <div class="step-number">2</div>
-                    </div>
-                    <h3>Copy Prompt</h3>
-                    <p>Copy the prompt text that matches what you want to create on your website.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div style="position: relative;">
-                        <div class="step-icon">
-                            <i class="fas fa-paste"></i>
-                        </div>
-                        <div class="step-number">3</div>
-                    </div>
-                    <h3>Paste & Generate</h3>
-                    <p>Paste the prompt into your no-code AI builder and generate your website section instantly.</p>
-                </div>
-            </div>
+            <h2 class="section-title">Your Satisfaction is Our Motivation</h2>
+            <p class="section-subtitle">We're committed to providing high-quality, constantly updated AI prompts that help you create amazing projects. Your success drives us to innovate every day.</p>
         </div>
     </section>
 
     <!-- Platforms -->
-    <section class="platforms">
+    <section id="platforms" class="platforms">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="section-title">Works With Your Favorite Platforms</h2>
-                <p class="section-subtitle">Our prompts are compatible with leading no-code AI website builders</p>
+                <h2 class="section-title">Supported Platforms</h2>
+                <p class="section-subtitle">Our prompts work with all leading no-code AI builders</p>
             </div>
             
             <div class="platforms-grid">
@@ -939,26 +743,61 @@
                     <i class="fas fa-layer-group"></i>
                     <span>Mixo</span>
                 </div>
+                <div class="platform">
+                    <i class="fas fa-code"></i>
+                    <span>Replit</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq">
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-subtitle">Find answers to common questions about our prompt packs</p>
+                <p class="section-subtitle">Find answers to common questions about our AI prompts</p>
             </div>
             
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
-                        What exactly do I get when I purchase a prompt pack?
+                        How often do you update your AI prompts? 
+                        <span class="update-badge">Updated Daily</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Each prompt pack contains a collection of specialized AI prompts designed for a specific website type. You'll receive a document with carefully crafted prompts that you can copy and paste into your no-code AI builder to generate website sections, layouts, and content.</p>
+                        <p>We update our AI prompt library every single day! Our team of prompt engineers works continuously to create new prompts and refine existing ones based on the latest AI developments and user feedback. Each day, we add at least 5-10 new prompts across various categories to ensure you always have fresh, effective tools for your projects.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What's your refund policy if I'm not satisfied?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a 30-day satisfaction guarantee on all prompt packs. If you're not completely satisfied with your purchase, simply contact our support team within 30 days of purchase, and we'll provide a full refund with no questions asked. Your satisfaction is our top priority.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I use these prompts for commercial projects?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! All our prompts come with a commercial license that allows you to use them in your personal, professional, and client projects. There are no restrictions on how many projects you can create using our prompts. We designed them specifically to help creators like you build amazing products.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I access prompt updates after purchasing?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>When you purchase any prompt pack, you get lifetime access to all future updates for that pack. We'll notify you via email whenever new prompts are added to packs you've purchased. You can also log in to your account on our website to download the latest versions at any time.</p>
                     </div>
                 </div>
                 
@@ -968,37 +807,17 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Absolutely not! These prompts are designed specifically for no-code platforms. All you need to do is copy the prompt text and paste it into your AI website builder. The AI will handle the rest.</p>
+                        <p>Not at all! Our prompts are designed specifically for no-code platforms. All you need to do is copy the prompt text and paste it into your AI website builder of choice. The prompts guide the AI to generate exactly what you need without any technical knowledge required.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Can I use these prompts with any AI website builder?
+                        How can I request specific prompt types?
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Our prompts work with most popular AI-powered website builders including Durable, Lovable, CreateDesign, Framer AI, and Mixo. The prompts are designed to be platform-agnostic and should work with any builder that accepts text prompts.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        How often do you update the prompt packs?
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We regularly update our prompt packs based on user feedback and improvements in AI technology. When you purchase a pack, you'll receive free updates for at least one year.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Can I use these prompts for client projects?
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes! Our prompt packs include a commercial license that allows you to use the generated websites for your clients. You can create unlimited websites for yourself or your clients.</p>
+                        <p>We love receiving prompt requests from our community! You can submit your prompt ideas through our contact form, or join our Discord community where we regularly take suggestions. Many of our daily updates are inspired by user requests, so don't hesitate to share what you'd like to see.</p>
                     </div>
                 </div>
             </div>
@@ -1006,57 +825,171 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h4>Ocean of Prompts</h4>
-                    <p>AI Prompt Packs for no-code website builders. Create professional websites in minutes with our expertly crafted AI prompts.</p>
+                    <h4>PromptHub</h4>
+                    <p>Your marketplace for powerful AI prompts. Create amazing projects faster with our curated prompt collections.</p>
                     <div class="social-links">
-                        <a href="https://x.com/hanzero013?t=Qr5X7oVolC8k2N9HrAx-Eg&s=09"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/hanero013?igsh=cG05enE1NGtrODd3"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
                 
                 <div class="footer-column">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="#categories">Prompt Packs</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#prompts">Browse Prompts</a></li>
+                        <li><a href="#platforms">Supported Platforms</a></li>
                         <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h4>Categories</h4>
                     <ul class="footer-links">
-                        <li><a href="#categories">Portfolio</a></li>
-                        <li><a href="#categories">Ecommerce</a></li>
-                        <li><a href="#categories">Agency / Services</a></li>
-                        <li><a href="#categories">Blog / Writing</a></li>
-                        <li><a href="#categories">SaaS / Startup</a></li>
+                        <li><a href="#">SaaS & Startups</a></li>
+                        <li><a href="#">E-commerce</a></li>
+                        <li><a href="#">Portfolio & CV</a></li>
+                        <li><a href="#">Productivity</a></li>
+                        <li><a href="#">Education</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h4>Contact</h4>
                     <ul class="footer-links">
-                        <li><i class="fas fa-envelope"></i> support@promptcraft.com</li>
-                        <li><i class="fas fa-comment"></i> Chat Support</li>
+                        <li><i class="fas fa-envelope"></i> support@prompthub.com</li>
+                        <li><i class="fas fa-comment"></i> Live Chat Support</li>
+                        <li><i class="fas fa-headset"></i> Help Center</li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 Ocean of Prompts. All rights reserved.</p>
+                <p>&copy; 2023 PromptHub. All rights reserved. AI prompts updated daily.</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Sample prompt data
+        const prompts = [
+            {
+                title: "Full Stack Application Job",
+                aiTool: "Cursor",
+                description: "Generate a comprehensive full-stack application for job searching. Includes user authentication, job listings, application tracking, and employer dashboard.",
+                image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                gumroadLink: "https://gumroad.com/l/fullstack-job"
+            },
+            {
+                title: "SaaS Business Dashboard",
+                aiTool: "Cursor",
+                description: "Create a professional SaaS business dashboard with analytics, user management, and subscription features. Includes data visualization components.",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                gumroadLink: "https://gumroad.com/l/saas-dashboard"
+            },
+            {
+                title: "E-commerce Store",
+                aiTool: "Lovable",
+                description: "Build a complete e-commerce solution with product listings, shopping cart, checkout flow, and customer management.",
+                image: "https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                gumroadLink: "https://gumroad.com/l/ecommerce-store"
+            },
+            {
+                title: "Portfolio Website",
+                aiTool: "Lovable",
+                description: "Design a stunning portfolio website to showcase your work. Includes project galleries, about section, and contact form.",
+                image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                gumroadLink: "https://gumroad.com/l/portfolio-site"
+            },
+            {
+                title: "To-Do Application",
+                aiTool: "Replit",
+                description: "Create a feature-rich to-do application with task management, categories, due dates, and progress tracking.",
+                image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                gumroadLink: "https://gumroad.com/l/todo-app"
+            },
+            {
+                title: "Social Media Dashboard",
+                aiTool: "Framer",
+                description: "Generate a comprehensive social media management dashboard with analytics, scheduling, and content creation tools.",
+                image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                gumroadLink: "https://gumroad.com/l/social-dashboard"
+            },
+            {
+                title: "Fitness Tracker",
+                aiTool: "Durable",
+                description: "Build a complete fitness tracking application with workout plans, progress tracking, nutrition logging, and community features.",
+                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                gumroadLink: "https://gumroad.com/l/fitness-tracker"
+            },
+            {
+                title: "Real Estate Platform",
+                aiTool: "Lovable",
+                description: "Create a professional real estate platform with property listings, search filters, agent profiles, and contact management.",
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                gumroadLink: "https://gumroad.com/l/real-estate"
+            }
+        ];
+
+        // Function to generate prompt cards
+        function generatePromptCards(promptList) {
+            const container = document.getElementById('prompts-container');
+            container.innerHTML = '';
+            
+            promptList.forEach(prompt => {
+                const card = document.createElement('div');
+                card.className = 'prompt-card';
+                card.innerHTML = `
+                    <div class="prompt-image" style="background-image: url('${prompt.image}')"></div>
+                    <div class="prompt-content">
+                        <div class="prompt-header">
+                            <h3 class="prompt-title">${prompt.title}</h3>
+                            <span class="ai-tool">${prompt.aiTool}</span>
+                        </div>
+                        <p class="prompt-description">${prompt.description}</p>
+                        <a href="${prompt.gumroadLink}" class="gumroad-button">
+                            <i class="fas fa-shopping-cart"></i> Get on Gumroad
+                        </a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Initial card generation
+        generatePromptCards(prompts);
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const toolFilter = document.getElementById('tool-filter');
+        
+        function filterPrompts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedTool = toolFilter.value;
+            
+            const filteredPrompts = prompts.filter(prompt => {
+                const matchesSearch = prompt.title.toLowerCase().includes(searchTerm) || 
+                                      prompt.description.toLowerCase().includes(searchTerm) ||
+                                      prompt.aiTool.toLowerCase().includes(searchTerm);
+                
+                const matchesTool = selectedTool === '' || prompt.aiTool === selectedTool;
+                
+                return matchesSearch && matchesTool;
+            });
+            
+            generatePromptCards(filteredPrompts);
+        }
+        
+        // Event listeners
+        searchInput.addEventListener('input', filterPrompts);
+        toolFilter.addEventListener('change', filterPrompts);
+
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
@@ -1064,7 +997,7 @@
                 faqItem.classList.toggle('active');
             });
         });
-        
+
         // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const nav = document.querySelector('nav ul');
@@ -1096,7 +1029,7 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                nav.style.display = 'none'; // Close mobile menu
+                if (nav) nav.style.display = 'none'; // Close mobile menu
                 
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -1108,25 +1041,5 @@
             });
         });
     </script>
-    <script type="text/javascript">
-	atOptions = {
-		'key' : '51ce34986a1575e6dfd53f1cd1fa710a',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '4eb564c62cb854960a29321aa67ac1cd',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type='text/javascript' src='//pl26955105.profitableratecpm.com/ea/4c/a4/ea4ca48f2cd65653340af36a4aa0e90d.js'></script>
-<script type="text/javascript" src="//www.highperformanceformat.com/4eb564c62cb854960a29321aa67ac1cd/invoke.js"></script>
 </body>
 </html>
